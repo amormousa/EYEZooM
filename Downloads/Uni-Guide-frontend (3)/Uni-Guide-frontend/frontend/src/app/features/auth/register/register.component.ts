@@ -10,11 +10,12 @@ import {
 import { TranslocoDirective } from '@jsverse/transloco';
 import { AuthService } from '../../../core/auth/auth.service';
 import { RegisterRequest } from '../../../models/auth.models';
+import { BackButtonComponent } from '../../../shared/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, TranslocoDirective],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, TranslocoDirective, BackButtonComponent],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })

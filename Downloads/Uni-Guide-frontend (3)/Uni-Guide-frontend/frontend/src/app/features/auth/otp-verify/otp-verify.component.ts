@@ -4,10 +4,13 @@ import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { OtpVerifyRequest } from '../../../models/auth.models';
 
+import { BackButtonComponent } from '../../../shared/components/back-button/back-button.component';
+
 @Component({
   selector: 'app-otp-verify',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, BackButtonComponent],
+
   templateUrl: './otp-verify.component.html',
   styleUrls: ['./otp-verify.component.scss'],
 })

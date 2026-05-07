@@ -24,9 +24,16 @@ export function initApp() {
   const doc = inject(DOCUMENT);
   return () =>
     new Promise<void>((resolve) => {
+      // Initialize Language
       const lang = localStorage.getItem('uniguide_lang') || 'ar';
       doc.documentElement.lang = lang;
       doc.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      // Initialize Theme
+      const theme = localStorage.getItem('theme') || 'dark';
+      doc.documentElement.setAttribute('data-theme', theme);
+      doc.body.setAttribute('data-theme', theme);
+      
       resolve();
     });
 }
@@ -45,7 +52,7 @@ export const appConfig: ApplicationConfig = {
     provideTransloco({
       config: {
         availableLangs: ['ar', 'en', 'fr'],
-        defaultLang: 'ar',
+        defaultLang: localStorage.getItem('uniguide_lang') || 'ar',
         fallbackLang: 'en',
         reRenderOnLangChange: true,
         prodMode: !isDevMode(),

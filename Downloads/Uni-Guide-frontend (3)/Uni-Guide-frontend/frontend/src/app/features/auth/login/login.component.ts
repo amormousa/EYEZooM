@@ -9,11 +9,12 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../core/auth/auth.service';
 import { LoginRequest } from '../../../models/auth.models';
+import { BackButtonComponent } from '../../../shared/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, BackButtonComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

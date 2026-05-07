@@ -4,11 +4,15 @@ import { RouterModule } from '@angular/router';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import { ThemeToggleComponent } from '../../../shared/components/theme-toggle/theme-toggle.component';
 import { AuthService } from '../../../core/auth/auth.service';
+import { RegisterButtonComponent } from '../../../shared/components/register-button/register-button.component';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule, LanguageSwitcherComponent, ThemeToggleComponent],
+  imports: [CommonModule, RouterModule, LanguageSwitcherComponent, ThemeToggleComponent, RegisterButtonComponent],
+
   template: `
     <header class="app-header">
       <div class="brand-container">
@@ -26,7 +30,13 @@ import { AuthService } from '../../../core/auth/auth.service';
           <app-theme-toggle />
         </nav>
 
+        <div class="auth-buttons" *ngIf="!authService.isAuthenticated()">
+          <a routerLink="/auth/login" class="login-link">Sign In</a>
+          <app-register-button (btnClick)="onRegister()" />
+        </div>
+
         <div class="user-profile" *ngIf="authService.isAuthenticated()">
+
           <span class="welcome">مرحباً، <strong>{{ authService.currentUserName() || authService.currentUser()?.name }}</strong></span>
           <button class="logout-btn" (click)="authService.logout()">
             <i class="fas fa-sign-out-alt"></i>
@@ -112,8 +122,33 @@ import { AuthService } from '../../../core/auth/auth.service';
       background: #ffe4e6;
       transform: translateY(-1px);
     }
+    .auth-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .login-link {
+      text-decoration: none;
+      color: #64748b;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .login-link:hover {
+      color: #1a6be0;
+    }
+    app-register-button {
+      transform: scale(0.7); // Scaling down to fit nav bar better
+      transform-origin: right center;
+    }
   `]
+
 })
 export class AppHeaderComponent {
   authService = inject(AuthService);
+  router = inject(Router);
+
+  onRegister() {
+    this.router.navigate(['/auth/register']);
+  }
 }
